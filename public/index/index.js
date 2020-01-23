@@ -1,27 +1,7 @@
-// copy paste from w3schools XD
-var acc = document.getElementsByClassName("accordion");
-var i;
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
-    }
-  });
-}
 setInterval(()=>{
-  $.get("/logs/step-one", data => {
-    $("#step-one").html(convertToHTML(data)).animate({scrollTop: $('#step-one').prop('scrollHeight')}, 800);
-
-  });
-  
-  $.get("/logs/step-two", data => {
-    $("#step-two").html(convertToHTML(data)).animate({scrollTop: $('#step-two').prop('scrollHeight')}, 800);
-  });
-}, 2000)
+    getStepLogs('step-one');
+    getStepLogs('step-two');
+}, 1400);
 
 
 function convertToHTML(data) {
@@ -33,4 +13,18 @@ function convertToHTML(data) {
     final += `<pre>> ${new Date(log.create_date).toLocaleDateString()}|${new Date(log.create_date).toLocaleTimeString()} - ${log.data}</pre>`;
   });
   return final;
+}
+
+let isAutoScroll = true;
+function toggleAutoScroll(){
+    isAutoScroll = !isAutoScroll;
+    $('.auto').toggleClass("auto-on auto-off");
+
+}
+
+function getStepLogs(step){
+  $.get("/logs/" + step, data => {
+    $('#' + step).html(convertToHTML(data));
+        if(isAutoScroll) $('#' + step).animate({scrollTop: $('#' + step).prop('scrollHeight')}, 900);
+  });
 }
