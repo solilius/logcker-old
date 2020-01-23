@@ -12,16 +12,22 @@ for (i = 0; i < acc.length; i++) {
     }
   });
 }
+setInterval(()=>{
+  $.get("/logs/step-one", data => {
+    $("#step-one").html(convertToHTML(data)).animate({scrollTop: $('#step-one').prop('scrollHeight')}, 800);
 
-$.get("/logs/step-one", data => {
-  $("#step-one").html(convertToHTML(data));
-});
+  });
+  
+  $.get("/logs/step-two", data => {
+    $("#step-two").html(convertToHTML(data)).animate({scrollTop: $('#step-two').prop('scrollHeight')}, 800);
+  });
+}, 2000)
 
-$.get("/logs/step-two", data => {
-  $("#step-two").html(convertToHTML(data));
-});
 
 function convertToHTML(data) {
+  if(data.length == 0){
+    return "<div style='padding:4%'> No Logs...</div>";
+  }
   let final = "";
   data.forEach(log => {
     final += `<pre>> ${new Date(log.create_date).toLocaleDateString()}|${new Date(log.create_date).toLocaleTimeString()} - ${log.data}</pre>`;
