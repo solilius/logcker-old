@@ -1,0 +1,5 @@
+{
+    "DOCKER_HOST": "http://127.0.0.1",
+    "DB_URI": "mongodb://sol:solsol44@ds239578.mlab.com:39578/logcker",
+    "LABEL": "test"
+}
