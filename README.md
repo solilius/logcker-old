@@ -14,7 +14,7 @@ $ npm i
 $ node app.js
 ```
 #### 3. Click [ here ](http://localhost:3000/) to open the UI
-the UI will update the logs displayed automatically but you can stop the auto scroll.
+the UI will be updated automatically but you can stop the auto scroll.
 #### 4. Go back to the bash and hit ENTER.
-all the contianers will be killed and therefore will stop loging.
+all the contianers will be killed and therefore will stop logging.
 go back to the UI and see that no new logs are displayed.
