@@ -1,23 +1,27 @@
 const Docker = require("dockerode");
 const DAL = require("./DAL");
-
-const LABEL = "test";
+const config = require('./config');
 const BL = {
   connectToDocker: () => {
-    const docker = new Docker({ host: "http://127.0.0.1" });
+    const docker = new Docker({ host: config.DOCKER_HOST });
 
     docker.listContainers((err, containers) => {
-      containers.forEach((container) => {
-        if (LABEL in container.Labels) {
-            docker.getContainer(container.Id).attach({ stream: true, stdout: true, stderr: true },
-            (err, stream) => {
-                stream.on('data', (data) => {
+      if (containers && containers.length !== 0) {
+        containers.forEach(container => {
+          if (config.LABEL in container.Labels) {
+            docker.getContainer(container.Id).attach(
+                { stream: true, stdout: true, stderr: true },
+                (err, stream) => {
+                  stream.on("data", data => {
                     DAL.insertLog(formatLog(container.Image, data));
-                });
-            }
-          );
-        }
-      });
+                  });
+                }
+            );
+          }
+        });
+      } else {
+          console.log('No containers found');
+      }
     });
   }
 };

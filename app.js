@@ -1,7 +1,6 @@
 // ########################################### //
 // ############### - Logcker - ############### //
 // ########################################### //
-
 const express = require("express");
 const mongoose = require("mongoose");
 const logs = require("./routes/logs");
@@ -27,7 +26,7 @@ app.use((err, req, res, next) => {
 
 // ############# Start Server ############### //
 
-mongoose.connect("mongodb://sol:solsol44@ds239578.mlab.com:39578/logcker").then(() => {
+mongoose.connect(require('./config').DB_URI).then(() => {
     app.listen(port, err => {
       if (err) {
         console.error(err);

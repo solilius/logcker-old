@@ -28,3 +28,7 @@ function getStepLogs(step){
         if(isAutoScroll) $('#' + step).animate({scrollTop: $('#' + step).prop('scrollHeight')}, 900);
   });
 }
+
+function deleteAll(){
+  $.ajax({url: "/logs/all", method: 'DELETE'});
+}

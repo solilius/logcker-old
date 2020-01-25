@@ -14,4 +14,10 @@ router.get("/:step", (req, res) => {
   });
 });
 
+router.delete("/all", (req, res) => {
+  DAL.deleteAllLogs().then(data => {
+    res.send(data);
+  });
+});
+
 module.exports = router;
