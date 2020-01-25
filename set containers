@@ -1,0 +1,11 @@
+#!/bin/bash
+docker pull solelan/step-one
+docker pull solelan/step-two
+docker pull solelan/step-three
+
+docker run -it --rm -d --name Step-One --label test solelan/step-one
+docker run -it --rm -d --name Step-Two --label test solelan/step-two
+docker run -it --rm -d --name Step-Three  solelan/step-three
+
+read -n 1 -p "Press ENTER to kill all containers..." m
+docker kill $(docker ps -q)
